@@ -1,3 +1,4 @@
+fs = require 'fs'
 supervisor = require 'supervisor'
 
 
@@ -7,7 +8,7 @@ main = () ->
     '--exec', 'node'
     '--no-restart-on', 'exit'
     '--extensions', 'coffee,js,json,yml'
-    '/Users/a/code/ReclaimSoftware/rs-runner/devrun.js'
+    fs.realpathSync("#{__dirname}/devrun.js")
   ]
 
 
