@@ -1,5 +1,7 @@
 **Run zero or more RS-style apps in the same process.**
 
+[![Build Status](https://secure.travis-ci.org/ReclaimSoftware/rs-runner.png)](http://travis-ci.org/ReclaimSoftware/rs-runner)
+
     require('rs-runner').run {
       app_dirs: [...]
       listen_on_host: '127.0.0.1'  # (default)
