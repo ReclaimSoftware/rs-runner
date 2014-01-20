@@ -1,8 +1,10 @@
 fs = require 'fs'
 supervisor = require 'supervisor'
+{argv} = require 'optimist'
 
 
 main = () ->
+  process.env.RS_RUNNER_HOST = argv.host or '127.0.0.1'
   supervisor.run [
     '--quiet'
     '--exec', 'node'
