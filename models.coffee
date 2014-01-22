@@ -21,7 +21,7 @@ _add_model = (app) ->
 _load_seed_rows = (app) ->
   seed_rows = []
   seed_path = "#{app.dir}/db/seed.coffee"
-  if fs.existsSync seed_path
+  if fs.existsSync(seed_path) and app.Model
     seed_module = require seed_path
 
     for plural, arr of seed_module
