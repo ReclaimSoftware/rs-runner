@@ -3,18 +3,17 @@ fs = require 'fs'
 
 
 add_datastores = ({apps, data_dir}, c) ->
-
-  # dirs
-  leveldb_dir = "#{data_dir}/leveldb"
   fs.mkdirSync(data_dir) if not fs.existsSync(data_dir)
-  fs.mkdirSync(leveldb_dir) if not fs.existsSync(leveldb_dir)
+  _add_leveldb apps, data_dir
+  c null
 
-  # db
+
+_add_leveldb = (apps, data_dir) ->
+  leveldb_dir = "#{data_dir}/leveldb"
+  fs.mkdirSync(leveldb_dir) if not fs.existsSync(leveldb_dir)
   leveldb_client = new LevelDBClient leveldb_dir
   for app in apps
     app.db = new LevelDBWrapper leveldb_client, {prefix: "#{app.slug}:"}
-
-  c null
 
 
 module.exports = {add_datastores}
