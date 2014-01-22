@@ -5,9 +5,10 @@ async = require 'async'
 express = require 'express'
 connect_assets = require 'connect-assets'
 frontend_libs = require 'rs-frontend-libs'
+{add_datastores} = require './datastores'
 
 
-run = ({app_dirs, listen_on_host, first_app_port}) ->
+run = ({app_dirs, data_dir, listen_on_host, first_app_port}) ->
   listen_on_host ?= '127.0.0.1'
   first_app_port ?= 3000
 
@@ -18,8 +19,14 @@ run = ({app_dirs, listen_on_host, first_app_port}) ->
       port: (first_app_port + i)
     }
 
-  async.forEach apps, ((app, c) -> app.listen c), (e) ->
+  add_datastores {apps, data_dir}, (e) ->
     throw e if e
+
+    for app in apps
+      app.module app
+
+    async.forEach apps, ((app, c) -> app.listen c), (e) ->
+      throw e if e
 
 
 create_app = ({app_dir, listen_on_host, port}) ->
@@ -29,7 +36,7 @@ create_app = ({app_dir, listen_on_host, port}) ->
   app.dir = fs.realpathSync app_dir
   app.slug = _.last(app.dir.split('/')).replace /-/g, '_'
   assert_app_file_layout app.dir
-  app_module = require "#{app.dir}/app"
+  app.module = require "#{app.dir}/app"
 
   app.set 'view engine', 'jade'
   app.set 'views', "#{app.dir}/views"
@@ -37,8 +44,6 @@ create_app = ({app_dir, listen_on_host, port}) ->
   app.use express.methodOverride()
   app.use express.static frontend_libs.PUBLIC_DIR
   app.use app.router
-
-  app_module app
 
   app.listen = (c) ->
     app.listen = null

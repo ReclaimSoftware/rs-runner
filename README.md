@@ -23,21 +23,23 @@ This will serve the app on `localhost:3000`, reloading when files change.
     assets/
       css/        .styl files
       js/         .coffee files
+    
+    .gitignore    "db"
 
-When you use `rs-dev`, it'll add these: (TODO)
+When you use `cd app && rs-dev`, it'll add these:
 
-    data/         a .gitignore'd folder for dev-mode data
-      db/         a LevelDB database, created by rs-dev
-      events/     various logging
+    db/           (.gitignore this)
+      leveldb/    LevelDB database files
 
 
 #### Additions to `app`
 
-    app.dir     Your app's folder
-    app.slug    Your app folder's name, with dashes replaced by underscores
-    app.server  The HTTP server, e.g. for your tests to .close
-    app.db      This apps's LevelDB wrapper of the sole LevelDB client
-                  All keys are automatically prefixed with "#{app.slug}:"
+    app.dir       Your app's folder
+    app.slug      Your app folder's name, with dashes replaced by underscores
+    app.module    require(your app's app.coffee)
+    app.server    The HTTP server, e.g. for your tests to .close
+    app.db        This apps's LevelDB wrapper of the sole LevelDB client
+                    All keys are automatically prefixed with "#{app.slug}:"
 
 
 #### Additions to `global`

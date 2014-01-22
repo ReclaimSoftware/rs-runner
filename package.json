@@ -27,6 +27,7 @@
     "optimist": "0.6.0",
     "redis": "0.8.4",
     "rs-frontend-libs": "git+https://github.com/ReclaimSoftware/rs-frontend-libs",
+    "rs-leveldb-wrapper": "git+https://github.com/ReclaimSoftware/rs-leveldb-wrapper",
     "rs-model": "git+https://github.com/ReclaimSoftware/rs-model",
     "rs-util": "git+https://github.com/ReclaimSoftware/rs-util",
     "stylus": "0.37.0",
