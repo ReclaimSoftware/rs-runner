@@ -6,6 +6,7 @@ express = require 'express'
 connect_assets = require 'connect-assets'
 frontend_libs = require 'rs-frontend-libs'
 {add_datastores} = require './datastores'
+{prep_models} = require './models'
 
 
 run = ({app_dirs, data_dir, listen_on_host, first_app_port}) ->
@@ -19,7 +20,10 @@ run = ({app_dirs, data_dir, listen_on_host, first_app_port}) ->
       port: (first_app_port + i)
     }
 
-  add_datastores {apps, data_dir}, (e) ->
+  async.series [
+    ((c) -> add_datastores {apps, data_dir}, c)
+    ((c) -> prep_models {apps}, c)
+  ], (e) ->
     throw e if e
 
     for app in apps

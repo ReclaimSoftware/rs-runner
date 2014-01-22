@@ -40,6 +40,7 @@ When you use `cd app && rs-dev`, it'll add these:
     app.server    The HTTP server, e.g. for your tests to .close
     app.db        This apps's LevelDB wrapper of the sole LevelDB client
                     All keys are automatically prefixed with "#{app.slug}:"
+    app.Model     require(app.dir + "/models/model"), if it exists
 
 
 #### Additions to `global`
