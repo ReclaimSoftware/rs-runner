@@ -9,7 +9,7 @@ frontend_libs = require 'rs-frontend-libs'
 {prep_models} = require './models'
 
 
-run = ({app_dirs, data_dir, listen_on_host, first_app_port}) ->
+run = ({app_dirs, data_dir, storage_dir, listen_on_host, first_app_port}) ->
   listen_on_host ?= '127.0.0.1'
   first_app_port ?= 3000
 
@@ -21,7 +21,7 @@ run = ({app_dirs, data_dir, listen_on_host, first_app_port}) ->
     }
 
   async.series [
-    ((c) -> add_datastores {apps, data_dir}, c)
+    ((c) -> add_datastores {apps, data_dir, storage_dir}, c)
     ((c) -> prep_models {apps}, c)
   ], (e) ->
     throw e if e

@@ -15,6 +15,12 @@
 
 This will serve the app on `localhost:3000`, reloading when files change.
 
+Options:
+
+    --host=           Default: "127.0.0.1". Use e.g. "0.0.0.0" to allow remote connections.
+    --data-dir=...    Default: ./db/
+    --storage-dir=... Default: ./db/storage/
+
 
 ### "RS-style app"
 
@@ -30,6 +36,8 @@ When you use `cd app && rs-dev`, it'll add these:
 
     db/           (.gitignore this)
       leveldb/    LevelDB database files
+      storage/
+        yourapp/  the root dir for app.storage
 
 
 #### Additions to `app`
@@ -38,7 +46,8 @@ When you use `cd app && rs-dev`, it'll add these:
     app.slug      Your app folder's name, with dashes replaced by underscores
     app.module    require(your app's app.coffee)
     app.server    The HTTP server, e.g. for your tests to .close
-    app.db        This apps's LevelDB wrapper of the sole LevelDB client
+    app.storage   a StorageWrapper (see rs-storage-wrapper)
+    app.db        This apps's LevelDBWrapper of the sole LevelDBClient
                     All keys are automatically prefixed with "#{app.slug}:"
     app.Model     require(app.dir + "/models/model"), if it exists
 
