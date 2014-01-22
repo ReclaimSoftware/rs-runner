@@ -1,6 +1,5 @@
 fs = require 'fs'
 {LevelDBWrapper, LevelDBClient} = require 'rs-leveldb-wrapper'
-levelup = require 'levelup'
 
 
 add_datastores = ({apps, data_dir}, c) ->
