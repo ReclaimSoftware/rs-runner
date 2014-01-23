@@ -12,6 +12,7 @@ frontend_libs = require 'rs-frontend-libs'
 run = ({app_dirs, data_dir, storage_dir, listen_on_host, first_app_port}) ->
   listen_on_host ?= '127.0.0.1'
   first_app_port ?= 3000
+  first_app_port = parseInt(first_app_port, 10) if (typeof first_app_port) == 'string'
 
   apps = for app_dir, i in app_dirs
     create_app {
